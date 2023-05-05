@@ -28,7 +28,7 @@ namespace JuegatonAPI.Repositories
         {
             var db = DbConnection();
 
-            var sql = @"SELECT nombre, apellidos, nickname, password, pais, color FROM public.""Jugador"";";
+            var sql = @"SELECT nombre, apellidos, nickname, password, pais, color, posicion, puntuacion FROM public.""Jugador"";";
 
             return await db.QueryAsync<Jugador>(sql,new { } );
 
@@ -42,7 +42,7 @@ namespace JuegatonAPI.Repositories
         {
             var db = DbConnection();
 
-            var sql = @"SELECT nombre, apellidos, nickname, password, pais, color FROM public.""Jugador"" WHERE nickname = @Nickname;";
+            var sql = @"SELECT nombre, apellidos, nickname, password, pais, color, posicion, puntuacion FROM public.""Jugador"" WHERE nickname = @Nickname;";
 
             return await db.QueryFirstOrDefaultAsync<Jugador>(sql, new { Nickname = nickname });
 
@@ -61,6 +61,7 @@ namespace JuegatonAPI.Repositories
             var result = await db.ExecuteAsync(sql, new {jugador.Nombre, jugador.Apellidos, jugador.Nickname, jugador.Password, jugador.Pais, jugador.Color });
             return result > 0;
         }
+
         /// <summary>
         /// Método que recibe un Jugador y hace un update al jugador con el mismo nickname en caso de no encontrarlo, devuelve 0
         /// </summary>
@@ -77,13 +78,28 @@ namespace JuegatonAPI.Repositories
                             nickname = @nickname,
                             password = @password,
                             pais = @pais,
-                            color = @color,
+                            color = @color
                         WHERE nickname = @Nickname;
                         ";
 
-            var result = await db.ExecuteAsync(sql, new { jugador.Nombre, jugador.Apellidos, jugador.Nickname, jugador.Password, jugador.Pais, jugador.Color });
+            var result = await db.ExecuteAsync(sql, new { jugador.Nombre, jugador.Apellidos, jugador.Nickname, jugador.Password, jugador.Pais, jugador.Color});
             return result > 0;
         }
 
+        public async Task<bool> UpdateScore(int Puntuacion, string Nickname)
+        {
+            
+            var db = DbConnection();
+
+            var sql = @"
+                        UPDATE public.""Jugador""
+                        SET puntuacion = @puntuacion
+                        WHERE nickname = @nickname;
+                        ";
+
+            
+            var result = await db.ExecuteAsync(sql, new { Puntuacion , Nickname});
+            return result > 0;
+        }
     }
 }

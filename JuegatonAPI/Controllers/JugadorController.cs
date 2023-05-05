@@ -10,7 +10,7 @@ namespace JuegatonAPI.Controllers
     public class JugadorController : ControllerBase
     {
         private readonly JugadorRepository jugadorRepository;
-        
+
         public JugadorController(JugadorRepository repository)
         {
             jugadorRepository = repository;
@@ -41,6 +41,35 @@ namespace JuegatonAPI.Controllers
             }
             var created = await jugadorRepository.InsertJugador(jugador);
             return Created("creado!", created);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdatePlayer([FromBody] Jugador jugador)
+        {
+            if (jugador == null)
+            {
+                return BadRequest();
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var update = await jugadorRepository.UpdateJugador(jugador);
+            return Created("actualizado!", update);
+
+        }
+        
+        [HttpPut("{puntuacion} {nickname}")]
+
+        public async Task<IActionResult> UpdateScore([FromRoute] int puntuacion,[FromRoute] string nickname)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var update = await jugadorRepository.UpdateScore(puntuacion, nickname);
+            return Created("actualizado!", update);
+
         }
     }
 }

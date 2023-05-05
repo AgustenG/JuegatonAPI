@@ -17,11 +17,18 @@ builder.Services.AddSingleton(builder.Services.AddDbContext<PosgreSQLConfig>(opt
     options.UseSqlServer("JuegatonDB")));
 
 builder.Services.AddScoped<JugadorRepository>();
-builder.Services.AddScoped<LeaderboardRepository>();
 builder.Services.AddScoped<WordleRepository>();
 builder.Services.AddScoped<AhorcadoRepository>();
 
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Nueva Politica", app =>
+    {
+        app.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
@@ -33,7 +40,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("Nueva Politica");
 app.UseAuthorization();
 
 app.MapControllers();
