@@ -28,7 +28,7 @@ namespace JuegatonAPI.Repositories
         {
             var db = DbConnection();
 
-            var sql = @"SELECT nombre, apellidos, nickname, password, pais, color, posicion, puntuacion FROM public.""Jugador"";";
+            var sql = @"SELECT nombre, apellidos, nickname, pais, color, posicion, puntuacion FROM public.""Jugador"";";
 
             return await db.QueryAsync<Jugador>(sql,new { } );
 
