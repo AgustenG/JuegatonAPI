@@ -12,7 +12,9 @@ namespace JuegatonAPI.Models
         public string? Password { get; set; }
         public string Pais { get; set; }
         public string Color { get; set; }
-        public int Posicion { get; set; }
+
         public int Puntuacion { get; set; }
+        public int Posicion { get; set; }
+
     }
 }
