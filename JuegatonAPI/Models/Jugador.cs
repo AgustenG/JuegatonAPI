@@ -10,7 +10,7 @@ namespace JuegatonAPI.Models
         public string Apellidos { get; set; }
         [Key]
         public  string Nickname { get; set; }
-        [JsonIgnore]
+        [JsonIgnore
         public string? Password { get; set; }
         public string Pais { get; set; }
         public string Color { get; set; }
