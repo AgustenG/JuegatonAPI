@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Numerics;
-using System.Text.Json.Serialization;
+using System.Runtime.Serialization;
 
 namespace JuegatonAPI.Models
 {
@@ -10,7 +10,7 @@ namespace JuegatonAPI.Models
         public string Apellidos { get; set; }
         [Key]
         public  string Nickname { get; set; }
-        [JsonIgnore]
+        [IgnoreDataMember]
         public string? Password { get; set; }
         public string Pais { get; set; }
         public string Color { get; set; }
