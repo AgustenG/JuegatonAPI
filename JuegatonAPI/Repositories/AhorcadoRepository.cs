@@ -19,7 +19,7 @@ namespace JuegatonAPI.Repositories
         {
             var db = DbConnection();
 
-            var sql = @"SELECT palabra_id, palabra FROM public.""Wordle"";";
+            var sql = @"SELECT palabra_id, palabra FROM public.""Ahorcado"";";
 
             return await db.QueryAsync<Wordle>(sql, new { });
 
