@@ -86,16 +86,16 @@ namespace JuegatonAPI.Repositories
             return result > 0;
         }
 
-        public async Task<bool> DeletePlayer(string nickname)
+        public async Task<bool> DeletePlayer(Jugador jugador)
         {
             var db = DbConnection();
 
             var sql = @"
-                        DELETE FROM  public.""Jugador""
+                        DELETE FROM public.""Jugador""
                         WHERE nickname = @Nickname;
                         ";
 
-            var result = await db.ExecuteAsync(sql, new { nickname });
+            var result = await db.ExecuteAsync(sql, new { Nickname=jugador.Nickname });
 
 
             return result > 0;

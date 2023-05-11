@@ -63,8 +63,8 @@ namespace JuegatonAPI.Controllers
         [HttpDelete("{nickname}")]
         public async Task<IActionResult> DeletePlayer(string nickname)
         {
-            var todoItem = await jugadorRepository.DeletePlayer(nickname);
-            return Created("borrado!", todoItem);
+            var deleted = await jugadorRepository.DeletePlayer(new Jugador { Nickname = nickname});
+            return Created("borrado!", deleted);
         }
 
         [HttpPut("{puntuacion} {nickname}")]
