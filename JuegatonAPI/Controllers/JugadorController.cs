@@ -1,6 +1,8 @@
 ﻿using JuegatonAPI.Models;
 using JuegatonAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 
 namespace JuegatonAPI.Controllers
@@ -58,7 +60,13 @@ namespace JuegatonAPI.Controllers
             return Created("actualizado!", update);
 
         }
-        
+        [HttpDelete("{nickname}")]
+        public async Task<IActionResult> DeletePlayer(string nickname)
+        {
+            var todoItem = await jugadorRepository.DeletePlayer(nickname);
+            return Created("borrado!", todoItem);
+        }
+
         [HttpPut("{puntuacion} {nickname}")]
 
         public async Task<IActionResult> UpdateScore([FromRoute] int puntuacion,[FromRoute] string nickname)
@@ -71,5 +79,6 @@ namespace JuegatonAPI.Controllers
             return Created("actualizado!", update);
 
         }
+
     }
 }
