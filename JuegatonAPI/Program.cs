@@ -24,13 +24,6 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("Nueva Politica", app =>
-    {
-        app.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials();
-    });
-});
-builder.Services.AddCors(options =>
-{
     options.AddPolicy("MyAllowedOrigins",
         policy =>
         {
